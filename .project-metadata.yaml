@@ -1,0 +1,44 @@
+name: Agent Studio
+description: |
+  Cloudera AI Agent Studio is a workspace for developing and deploying AI agentic workflows.
+author: Cloudera Inc.
+specification_version: 1.0
+prototype_version: 1.0
+date: "2023-07-22"
+
+environment_variables:
+  AGENT_STUDIO_NUM_WORKFLOW_RUNNERS:
+    default: "5"
+    required: true
+    description: >-
+      Number of workflow runners to spawn for testing workflows within Agent Studio. If multiple concurrent 
+      users of Agent Studio are expected, you can increase this number accordingly.
+
+runtimes:
+  - editor: PBJ Workbench
+    kernel: Python 3.10
+    edition: Standard
+
+tasks:
+  - type: run_session
+    name: Add agent studio runtime image to runtime catalog
+    script: register-runtime.py
+    short_summary: Add runtime image
+    long_summary: Add agent studio runtime image to runtime catalog
+    kernel: python3
+    cpu: 1
+    memory: 4
+  - type: start_application
+    name: "Agent Studio"
+    short_summary: Start Cloudera AI Agent Studio
+    subdomain: cai-agent-studio
+    script: run-app.py
+    long_summary: This application launches an agent studio backend and frontend application.
+    kernel: Agent Studio
+    edition: Agent Studio
+    bypass_authentication: true
+    cpu: 4
+    memory: 16
+    is_embedded: true
+    environment_variables:
+      TASK_TYPE: START_APPLICATION
