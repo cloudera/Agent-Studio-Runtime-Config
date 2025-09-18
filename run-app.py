@@ -19,34 +19,18 @@ import subprocess
 import os
 
 def initialize_app_paths():
-    app_dir = None
-    app_data_dir = None
-    is_studio = os.getenv("AGENT_STUDIO_RENDER_MODE", "studio").lower() == "studio"
-    is_composable: bool = os.getenv("IS_COMPOSABLE", "false").lower() == "true"
-    is_runtime = os.getenv("AGENT_STUDIO_DEPLOY_MODE", "amp").lower() == "runtime"
-    
-    # Set app data directory based on whether we are running in
-    # studio mode or workflow mode.
-    app_data_dir = os.getenv("APP_DATA_DIR")
-    if is_studio:
-        app_data_dir = "/home/cdsw/agent-studio" if is_composable else "/home/cdsw"
-    else:
-        # If we don't have an APP_DATA_DIR set, this means we're running a legacy
-        # workflow application. In this case, APP_DATA_DIR can just be defaulted
-        # to the app directory.
-        if not app_data_dir:
-            os.environ["AGENT_STUDIO_LEGACY_WORKFLOW_APP"] = "true"
-            app_data_dir = "/home/cdsw/agent-studio" if is_composable else "/home/cdsw"
-            
-    # Set the app directory 
-    app_dir = os.getenv("APP_DIR", "/home/cdsw/agent-studio") if is_composable else "/home/cdsw"
+    app_dir = "/studio_app"
+    app_data_dir = "/home/cdsw/agent-studio"
 
     # At this point, both environment variables have been configured
     os.environ["APP_DIR"] = app_dir
     os.environ["APP_DATA_DIR"] = app_data_dir
+    os.environ["AGENT_STUDIO_DEPLOY_MODE"] = "runtime"
+    os.environ["AGENT_STUDIO_RENDER_MODE"] = "studio"
 
     print(f"Application directory: {app_dir}")
     print(f"Application data directory: {app_data_dir}")
+
 
 initialize_app_paths()
 
