@@ -26,7 +26,6 @@ def initialize_app_paths():
     os.environ["APP_DIR"] = app_dir
     os.environ["APP_DATA_DIR"] = app_data_dir
     os.environ["AGENT_STUDIO_DEPLOY_MODE"] = "runtime"
-    os.environ["AGENT_STUDIO_RENDER_MODE"] = "studio"
 
     print(f"Application directory: {app_dir}")
     print(f"Application data directory: {app_data_dir}")

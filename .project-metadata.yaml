@@ -14,18 +14,12 @@ environment_variables:
       Number of workflow runners to spawn for testing workflows within Agent Studio. If multiple concurrent 
       users of Agent Studio are expected, you can increase this number accordingly.
 
+runtimes:
+  - editor: PBJ Workbench
+    kernel: Agent Studio
+    edition: Agent Studio
+
 tasks:
-  - type: run_session
-    name: Add agent studio runtime image to runtime catalog
-    script: register-runtime.py
-    short_summary: Add runtime image
-    long_summary: Add agent studio runtime image to runtime catalog
-    cpu: 1
-    memory: 4
-    runtimes:
-      editor: PBJ Workbench
-      kernel: Python 3.10
-      edition: Standard
   - type: start_application
     name: "Agent Studio"
     short_summary: Start Cloudera AI Agent Studio
@@ -36,9 +30,5 @@ tasks:
     cpu: 4
     memory: 16
     is_embedded: true
-    runtimes:
-      editor: PBJ Workbench
-      kernel: Agent Studio
-      edition: Agent Studio
     environment_variables:
       TASK_TYPE: START_APPLICATION
